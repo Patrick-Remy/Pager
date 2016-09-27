@@ -119,6 +119,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	override open func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
+		if !self.defaultSetupDone {
+            		self.defaultSetup()
+        	}
 		self.layoutSubViews()
 	}
 
