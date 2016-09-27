@@ -53,7 +53,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open var tabOffset: CGFloat = 56.0
 	open var tabWidth: CGFloat = 128.0
 	open var tabsTextFont: UIFont = UIFont.boldSystemFont(ofSize: 16.0)
-	open var indicatorHeight: CGFloat = 5.0
+	open var indicatorHeight: CGFloat = 3.0
 	open var tabLocation: PagerTabLocation = PagerTabLocation.top
 	open var animation: PagerAnimation = PagerAnimation.during
 	open var startFromSecondTab: Bool = false
