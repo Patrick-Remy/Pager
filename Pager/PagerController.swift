@@ -43,7 +43,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: - public properties
 	open var contentViewBackgroundColor: UIColor = UIColor.white
 	open var indicatorColor: UIColor = UIColor.red
-	open var tabsViewBackgroundColor: UIColor = UIColor.gray
+	open var tabsViewBackgroundColor: UIColor = UIColor.clear
 	open var tabsTextColor: UIColor = UIColor.white
 	open var selectedTabTextColor = UIColor.white
 	open var dataSource: PagerDataSource!
@@ -64,6 +64,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	fileprivate var tabControllers: [UIViewController] = []
 
 	// MARK: - Tab and content stuff
+    internal var blurView: UIVisualEffectView?
 	internal var tabsView: UIScrollView?
 	internal var pageViewController: UIPageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
 	internal var actualDelegate: UIScrollViewDelegate?
@@ -192,9 +193,13 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			self.tabsView?.isScrollEnabled = true
 			self.tabsView!.tag = 38
 
-			self.view.insertSubview(self.tabsView!, at: 0)
+            self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+            self.blurView!.frame = self.tabsView!.frame
+            self.blurView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.blurView!.addSubview(self.tabsView!)
+			self.view.insertSubview(self.blurView!, at: 0)
 		} else {
-			self.tabsView = self.view.viewWithTag(38) as? UIScrollView
+			self.tabsView = self.blurView!.viewWithTag(38) as? UIScrollView
 		}
 
 		// Add tab views to _tabsView
@@ -283,12 +288,13 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		frame.size.width = self.view.frame.width
 		frame.size.height = self.tabHeight
 		self.tabsView!.frame = frame
+        self.blurView!.frame = frame
 
 		frame = self.contentView.frame
 		frame.origin.x = 0.0
-		frame.origin.y = (self.tabLocation == .top) ? topLayoutGuide + self.tabsView!.frame.height + tabTopOffset : topLayoutGuide
+		frame.origin.y = (self.tabLocation == .top) ? topLayoutGuide + tabTopOffset : topLayoutGuide
 		frame.size.width = self.view.frame.width
-		frame.size.height = self.view.frame.height - (topLayoutGuide + self.tabsView!.frame.height + tabTopOffset)
+		frame.size.height = self.view.frame.height - (topLayoutGuide + tabTopOffset)
 
 		self.contentView.frame = frame
 	}
