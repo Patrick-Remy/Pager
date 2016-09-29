@@ -70,6 +70,11 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	internal var actualDelegate: UIScrollViewDelegate?
 	internal var contentView: UIView {
 		let contentView = self.pageViewController.view
+        for view in contentView!.subviews {
+            if let view = view as? UIScrollView {
+                view.isScrollEnabled = false
+            }
+        }
 		contentView!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 		contentView!.backgroundColor = self.contentViewBackgroundColor
 		contentView!.bounds = self.view.bounds
@@ -184,10 +189,12 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		if self.tabsView == nil {
 
 			self.tabsView = UIScrollView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: self.tabHeight))
+            self.tabsView!.delaysContentTouches = true
 			self.tabsView!.autoresizingMask = .flexibleWidth
 			self.tabsView!.backgroundColor = self.tabsViewBackgroundColor
 			self.tabsView!.scrollsToTop = false
 			self.tabsView?.bounces = false
+            self.tabsView!.alwaysBounceVertical = false
 			self.tabsView!.showsHorizontalScrollIndicator = false
 			self.tabsView!.showsVerticalScrollIndicator = false
 			self.tabsView?.isScrollEnabled = true
@@ -598,6 +605,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: - UIScrollViewDelegate
 	// MARK: Responding to Scrolling and Dragging
 	open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
 		if self.actualDelegate != nil {
 			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScroll(_:))) {
 				self.actualDelegate!.scrollViewDidScroll!(scrollView)
