@@ -197,7 +197,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
             self.tabsView!.alwaysBounceVertical = false
 			self.tabsView!.showsHorizontalScrollIndicator = false
 			self.tabsView!.showsVerticalScrollIndicator = false
-			self.tabsView?.isScrollEnabled = true
+			self.tabsView?.isScrollEnabled = false
 			self.tabsView!.tag = 38
 
             self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
