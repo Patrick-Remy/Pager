@@ -154,6 +154,12 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		self.pageViewController.dataSource = self
 		self.pageViewController.delegate = self
+		
+		for view in self.pageViewController.view.subviews {
+			if let subView = view as? UIScrollView {
+                		subView.isScrollEnabled = false
+        		}
+        	}
 	}
 
 	func defaultSetup() {
@@ -197,7 +203,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
             self.tabsView!.alwaysBounceVertical = false
 			self.tabsView!.showsHorizontalScrollIndicator = false
 			self.tabsView!.showsVerticalScrollIndicator = false
-			self.tabsView?.isScrollEnabled = false
+			self.tabsView?.isScrollEnabled = true
 			self.tabsView!.tag = 38
 
             self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
