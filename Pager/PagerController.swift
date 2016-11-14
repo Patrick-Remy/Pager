@@ -41,23 +41,23 @@ public enum PagerAnimation: Int {
 open class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate {
 
 	// MARK: - public properties
-	open var contentViewBackgroundColor: UIColor = UIColor.white
-	open var indicatorColor: UIColor = UIColor.red
+	open var contentViewBackgroundColor: UIColor = UIColor.black
+	open var indicatorColor: UIColor = UIColor(red: 0, green: 118/255, blue: 255/255, alpha: 1)
 	open var tabsViewBackgroundColor: UIColor = UIColor.clear
-	open var tabsTextColor: UIColor = UIColor.white
-	open var selectedTabTextColor = UIColor.white
+	open var tabsTextColor: UIColor = UIColor.gray
+	open var selectedTabTextColor = UIColor(red: 0, green: 118/255, blue: 255/255, alpha: 1)
 	open var dataSource: PagerDataSource!
 	open var delegate: PagerDelegate?
 	open var tabHeight: CGFloat = 44.0
 	open var tabTopOffset: CGFloat = 0.0
-	open var tabOffset: CGFloat = 56.0
+	open var tabOffset: CGFloat = 0
 	open var tabWidth: CGFloat = 128.0
 	open var tabsTextFont: UIFont = UIFont.boldSystemFont(ofSize: 16.0)
 	open var indicatorHeight: CGFloat = 3.0
 	open var tabLocation: PagerTabLocation = PagerTabLocation.top
 	open var animation: PagerAnimation = PagerAnimation.during
 	open var startFromSecondTab: Bool = false
-	open var centerCurrentTab: Bool = false
+	open var centerCurrentTab: Bool = true
 	open var fixFormerTabsPositions: Bool = false
 	open var fixLaterTabsPosition: Bool = false
 	fileprivate var tabNames: [String] = []
@@ -377,18 +377,14 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		var frame: CGRect = tabView.frame
 
 		if self.centerCurrentTab {
-
-			if (frame.origin.x + frame.width + (self.tabsView!.frame.width / 2)) >= self.tabsView!.contentSize.width {
-				frame.origin.x = (self.tabsView!.contentSize.width - self.tabsView!.frame.width + self.tabOffset)
+            
+            if newIndex == 0 {
+                frame.origin.x = 0
+            } else if newIndex == tabCount - 1 {
+                frame.origin.x = self.tabsView!.contentSize.width - self.tabsView!.frame.width
 			} else {
-
-				frame.origin.x += (frame.width / 2)
-				frame.origin.x -= (self.tabsView!.frame.width / 2) + self.tabOffset
-
-				if frame.origin.x < 0 {
-					frame.origin.x = self.tabOffset
-				}
-
+				frame.origin.x += frame.width / 2
+				frame.origin.x -= self.tabsView!.frame.width / 2
 			}
 
 		} else {
@@ -401,7 +397,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
         }
         
 
-		self.tabsView!.setContentOffset(frame.origin, animated: true)
+        self.tabsView!.setContentOffset(frame.origin, animated: true)
 	}
 
 
