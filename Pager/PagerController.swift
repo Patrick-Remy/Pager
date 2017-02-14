@@ -206,7 +206,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			self.tabsView?.isScrollEnabled = true
 			self.tabsView!.tag = 38
 
-            self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+            self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
             self.blurView!.frame = self.tabsView!.frame
             self.blurView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             self.blurView!.addSubview(self.tabsView!)
