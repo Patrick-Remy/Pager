@@ -51,7 +51,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open var tabHeight: CGFloat = 44.0
 	open var tabTopOffset: CGFloat = 0.0
 	open var tabOffset: CGFloat = 0
-	open var tabWidth: CGFloat = 128.0
+	open var tabWidth: CGFloat = 112.0 // 128.0
 	open var tabsTextFont: UIFont = UIFont.boldSystemFont(ofSize: 16.0)
 	open var indicatorHeight: CGFloat = 3.0
 	open var tabLocation: PagerTabLocation = PagerTabLocation.top
@@ -99,6 +99,17 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open func setupPager(tabNames: [String], tabControllers: [UIViewController]) {
 		self.tabNames = tabNames
 		self.tabControllers = tabControllers
+        
+        // Increase tabWidth if necessary
+        for name in tabNames {
+            let label = UILabel()
+            label.text = name
+            label.font = tabsTextFont
+            label.sizeToFit()
+            if label.frame.width + 16 > tabWidth {
+                tabWidth = label.frame.width + 16
+            }
+        }
 	}
 
 	open func reloadData() {
