@@ -66,13 +66,14 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: - Tab and content stuff
     internal var blurView: UIVisualEffectView?
 	internal var tabsView: UIScrollView?
-	internal var pageViewController: UIPageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+	open var pageViewController: UIPageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
 	internal var actualDelegate: UIScrollViewDelegate?
-	internal var contentView: UIView {
+	open var contentView: UIView {
 		let contentView = self.pageViewController.view
         for view in contentView!.subviews {
             if let view = view as? UIScrollView {
-                view.isScrollEnabled = false
+                //view.bounces = false
+                view.isScrollEnabled = true
             }
         }
 		contentView!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -165,12 +166,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		self.pageViewController.dataSource = self
 		self.pageViewController.delegate = self
-		
-		for view in self.pageViewController.view.subviews {
-			if let subView = view as? UIScrollView {
-                		subView.isScrollEnabled = false
-        		}
-        	}
 	}
 
 	func defaultSetup() {
