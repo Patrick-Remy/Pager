@@ -51,7 +51,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open var tabHeight: CGFloat = 44.0
 	open var tabTopOffset: CGFloat = 0.0
 	open var tabOffset: CGFloat = 0
-	open var tabWidth: CGFloat = 112.0 // 128.0
+	open var tabWidth: CGFloat = 100.0
 	open var tabsTextFont: UIFont = UIFont.boldSystemFont(ofSize: 16.0)
 	open var indicatorHeight: CGFloat = 3.0
 	open var tabLocation: PagerTabLocation = PagerTabLocation.top
@@ -291,14 +291,14 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.defaultSetupDone = true
 	}
 
-	func layoutSubViews() {
+	open func layoutSubViews() {
 		var topLayoutGuide: CGFloat = 0.0
         
         if let nav = self.navigationController, !nav.isNavigationBarHidden, nav.navigationBar.isTranslucent != false {
             topLayoutGuide = UIApplication.shared.isStatusBarHidden ? 0.0 : 20.0
             topLayoutGuide += nav.navigationBar.frame.size.height
         } else {
-            tabHeight += UIApplication.shared.isStatusBarHidden ? 0.0 : 20.0
+            tabHeight += UIApplication.shared.isStatusBarHidden ? 0.0 : 10.0
         }
 
 		var frame: CGRect = self.tabsView!.frame
