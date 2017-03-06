@@ -298,7 +298,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
             topLayoutGuide = UIApplication.shared.isStatusBarHidden ? 0.0 : 20.0
             topLayoutGuide += nav.navigationBar.frame.size.height
         } else {
-            tabHeight += UIApplication.shared.isStatusBarHidden ? 0.0 : 10.0
+            tabHeight += UIApplication.shared.isStatusBarHidden ? 0.0 : 20.0
         }
 
 		var frame: CGRect = self.tabsView!.frame
