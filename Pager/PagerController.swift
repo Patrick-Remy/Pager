@@ -42,10 +42,10 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	// MARK: - public properties
 	open var contentViewBackgroundColor: UIColor = UIColor.black
-	open var indicatorColor: UIColor = UIColor(red: 0, green: 118/255, blue: 255/255, alpha: 1)
+	open var indicatorColor: UIColor = UIColor(red: 228/255, green: 25/255, blue: 21/255, alpha: 1) // UIColor(red: 0, green: 118/255, blue: 255/255, alpha: 1)
 	open var tabsViewBackgroundColor: UIColor = UIColor.clear
-	open var tabsTextColor: UIColor = UIColor.gray
-	open var selectedTabTextColor = UIColor(red: 0, green: 118/255, blue: 255/255, alpha: 1)
+	open var tabsTextColor: UIColor = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1) // UIColor.gray
+	open var selectedTabTextColor = UIColor(red: 228/255, green: 25/255, blue: 21/255, alpha: 1) // UIColor(red: 0, green: 118/255, blue: 255/255, alpha: 1)
 	open var dataSource: PagerDataSource!
 	open var delegate: PagerDelegate?
 	open var tabHeight: CGFloat = 44.0
@@ -292,10 +292,10 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	}
 
 	open func layoutSubViews() {
-		var topLayoutGuide: CGFloat = 0.0
+		let topLayoutGuide: CGFloat = 0.0
         
 
-            tabHeight += UIApplication.shared.isStatusBarHidden ? 0.0 : 10.0
+        tabHeight += UIApplication.shared.isStatusBarHidden ? 0.0 : 10.0
 
 		var frame: CGRect = self.tabsView!.frame
 		frame.origin.x = 0.0
